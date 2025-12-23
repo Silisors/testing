@@ -1,0 +1,198 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==================== USUARIOS Y EMPRESAS ====================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String
+  role          UserRole  @default(USER)
+  language      String    @default("es")
+  companyId     String?
+  company       Company?  @relation(fields: [companyId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Company {
+  id            String    @id @default(cuid())
+  name          String
+  industry      String?
+  country       String
+  logo          String?
+  users         User[]
+  tenders       Tender[]
+  suppliers     Supplier[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// ==================== LICITACIONES Y PRODUCTOS ====================
+
+model Tender {
+  id            String        @id @default(cuid())
+  title         String
+  description   String?
+  status        TenderStatus  @default(DRAFT)
+  supplierScope SupplierScope @default(ALL)
+  currency      String        @default("USD")  // Moneda preferida para cotizaciones
+  deadline      DateTime?
+  companyId     String
+  company       Company       @relation(fields: [companyId], references: [id])
+  items         TenderItem[]
+  quotes        Quote[]
+  supplierSearches SupplierSearch[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model TenderItem {
+  id             String    @id @default(cuid())
+  productName    String
+  description    String?
+  quantity       Int
+  unit           String?
+  specifications String?
+  tenderId       String
+  tender         Tender    @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+  quoteItems     QuoteItem[]
+  createdAt      DateTime  @default(now())
+}
+
+// ==================== PROVEEDORES ====================
+
+model Supplier {
+  id            String        @id @default(cuid())
+  name          String
+  email         String
+  phone         String?
+  website       String?
+  address       String?
+  country       String
+  scope         SupplierScope
+  categories    String[]
+  rating        Float?
+  isVerified    Boolean       @default(false)
+  companyId     String?
+  company       Company?      @relation(fields: [companyId], references: [id])
+  quotes        Quote[]
+  contacts      SupplierContact[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model SupplierContact {
+  id            String        @id @default(cuid())
+  supplierId    String
+  supplier      Supplier      @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  tenderId      String?
+  type          ContactType
+  status        ContactStatus @default(PENDING)
+  subject       String?
+  message       String
+  response      String?
+  sentAt        DateTime?
+  respondedAt   DateTime?
+  createdAt     DateTime      @default(now())
+}
+
+model SupplierSearch {
+  id            String    @id @default(cuid())
+  tenderId      String
+  tender        Tender    @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+  query         String
+  resultsCount  Int       @default(0)
+  aiResponse    String?
+  createdAt     DateTime  @default(now())
+}
+
+// ==================== COTIZACIONES ====================
+
+model Quote {
+  id            String      @id @default(cuid())
+  tenderId      String
+  tender        Tender      @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+  supplierId    String
+  supplier      Supplier    @relation(fields: [supplierId], references: [id])
+  totalPrice    Float
+  currency      String      @default("USD")
+  deliveryDays  Int?
+  warranty      String?
+  paymentTerms  String?
+  notes         String?
+  sourceUrl     String?     // URL del e-commerce de donde proviene la cotización
+  attachmentUrl String?
+  items         QuoteItem[]
+  status        QuoteStatus @default(RECEIVED)
+  score         Float?      // Puntuación calculada por IA
+  aiAnalysis    String?     // Análisis de IA
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model QuoteItem {
+  id            String     @id @default(cuid())
+  quoteId       String
+  quote         Quote      @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  tenderItemId  String?
+  tenderItem    TenderItem? @relation(fields: [tenderItemId], references: [id])
+  productName   String
+  quantity      Int
+  unitPrice     Float
+  totalPrice    Float
+  notes         String?
+}
+
+// ==================== ENUMS ====================
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+enum TenderStatus {
+  DRAFT
+  SEARCHING      // Buscando proveedores
+  QUOTING        // Esperando cotizaciones
+  ANALYZING      // Analizando cotizaciones
+  COMPLETED
+  CANCELLED
+}
+
+enum SupplierScope {
+  LOCAL
+  NATIONAL
+  INTERNATIONAL
+  ALL
+}
+
+enum ContactType {
+  EMAIL
+  PHONE
+  WHATSAPP
+}
+
+enum ContactStatus {
+  PENDING
+  SENT
+  DELIVERED
+  OPENED
+  RESPONDED
+  FAILED
+}
+
+enum QuoteStatus {
+  RECEIVED
+  ANALYZING
+  ACCEPTED
+  REJECTED
+}

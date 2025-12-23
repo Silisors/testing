@@ -1,0 +1,220 @@
+{
+    "common": {
+        "appName": "ComprasBot",
+        "tagline": "Intelligent Procurement Management",
+        "loading": "Loading...",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "edit": "Edit",
+        "create": "Create",
+        "search": "Search",
+        "filter": "Filter",
+        "export": "Export",
+        "import": "Import",
+        "actions": "Actions",
+        "status": "Status",
+        "date": "Date",
+        "total": "Total",
+        "details": "Details",
+        "back": "Back",
+        "next": "Next",
+        "previous": "Previous",
+        "submit": "Submit",
+        "confirm": "Confirm",
+        "yes": "Yes",
+        "no": "No",
+        "all": "All",
+        "none": "None",
+        "noResults": "No results found",
+        "error": "Error",
+        "success": "Success"
+    },
+    "auth": {
+        "login": "Login",
+        "logout": "Logout",
+        "register": "Register",
+        "email": "Email",
+        "password": "Password",
+        "confirmPassword": "Confirm password",
+        "forgotPassword": "Forgot password?",
+        "resetPassword": "Reset password",
+        "companyName": "Company name",
+        "fullName": "Full name",
+        "country": "Country",
+        "industry": "Industry",
+        "loginError": "Invalid credentials",
+        "registerSuccess": "Registration successful. Please login.",
+        "noAccount": "Don't have an account?",
+        "haveAccount": "Already have an account?"
+    },
+    "nav": {
+        "dashboard": "Dashboard",
+        "tenders": "Tenders",
+        "quotes": "Quotes",
+        "suppliers": "Suppliers",
+        "reports": "Reports",
+        "settings": "Settings"
+    },
+    "dashboard": {
+        "title": "Dashboard",
+        "welcome": "Welcome, {name}",
+        "activeTenders": "Active Tenders",
+        "pendingQuotes": "Pending Quotes",
+        "totalSuppliers": "Total Suppliers",
+        "monthlySavings": "Monthly Savings",
+        "recentActivity": "Recent Activity",
+        "quickActions": "Quick Actions",
+        "newTender": "New Tender",
+        "viewQuotes": "View Quotes"
+    },
+    "tenders": {
+        "title": "Tenders",
+        "newTender": "New Tender",
+        "editTender": "Edit Tender",
+        "tenderDetails": "Tender Details",
+        "tenderTitle": "Title",
+        "tenderDescription": "Description",
+        "deadline": "Deadline",
+        "supplierScope": "Supplier Scope",
+        "scopeLocal": "Local",
+        "scopeNational": "National",
+        "scopeInternational": "International",
+        "scopeAll": "All",
+        "items": "Products/Services",
+        "addItem": "Add Product",
+        "productName": "Product Name",
+        "quantity": "Quantity",
+        "unit": "Unit",
+        "specifications": "Specifications",
+        "searchSuppliers": "Search Suppliers",
+        "contactSuppliers": "Contact Suppliers",
+        "status": {
+            "draft": "Draft",
+            "searching": "Searching Suppliers",
+            "quoting": "Awaiting Quotes",
+            "analyzing": "Analyzing",
+            "completed": "Completed",
+            "cancelled": "Cancelled"
+        }
+    },
+    "suppliers": {
+        "title": "Suppliers",
+        "newSupplier": "New Supplier",
+        "editSupplier": "Edit Supplier",
+        "supplierDetails": "Supplier Details",
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "website": "Website",
+        "address": "Address",
+        "country": "Country",
+        "scope": "Scope",
+        "categories": "Categories",
+        "rating": "Rating",
+        "verified": "Verified",
+        "notVerified": "Not Verified",
+        "contactHistory": "Contact History",
+        "sendQuoteRequest": "Request Quote",
+        "aiSearch": "AI Search",
+        "searchingSuppliers": "Searching suppliers with AI...",
+        "foundSuppliers": "Found {count} suppliers"
+    },
+    "quotes": {
+        "title": "Quotes",
+        "newQuote": "New Quote",
+        "quoteDetails": "Quote Details",
+        "totalPrice": "Total Price",
+        "currency": "Currency",
+        "deliveryDays": "Delivery Days",
+        "warranty": "Warranty",
+        "paymentTerms": "Payment Terms",
+        "notes": "Notes",
+        "items": "Items",
+        "unitPrice": "Unit Price",
+        "accept": "Accept",
+        "reject": "Reject",
+        "compare": "Compare",
+        "analyzeWithAI": "Analyze with AI",
+        "bestPrice": "Best Price",
+        "bestDelivery": "Best Delivery",
+        "bestOverall": "Best Overall",
+        "aiRecommendation": "AI Recommendation",
+        "status": {
+            "received": "Received",
+            "analyzing": "Analyzing",
+            "accepted": "Accepted",
+            "rejected": "Rejected"
+        }
+    },
+    "ai": {
+        "searching": "Searching with artificial intelligence...",
+        "analyzing": "Analyzing with AI...",
+        "recommendations": "Recommendations",
+        "score": "Score",
+        "analysis": "Analysis",
+        "noApiKey": "OpenAI API not configured. Set OPENAI_API_KEY to enable AI features."
+    },
+    "landing": {
+        "hero": {
+            "title": "Automate Your Procurement with Artificial Intelligence",
+            "subtitle": "ComprasBot finds the best suppliers, requests quotes and analyzes offers automatically",
+            "cta": "Start Free",
+            "demo": "View Demo"
+        },
+        "features": {
+            "title": "Features",
+            "search": {
+                "title": "Intelligent Search",
+                "description": "Find local, national and international suppliers with AI"
+            },
+            "autoContact": {
+                "title": "Automatic Contact",
+                "description": "Send personalized quote requests to all suppliers"
+            },
+            "analysis": {
+                "title": "Quote Analysis",
+                "description": "Compare prices, delivery times and conditions automatically"
+            },
+            "multiLanguage": {
+                "title": "Multi-language",
+                "description": "Work in Spanish, English or Portuguese according to your preference"
+            }
+        },
+        "pricing": {
+            "title": "Pricing",
+            "free": {
+                "name": "Free",
+                "price": "$0",
+                "features": [
+                    "5 tenders/month",
+                    "10 suppliers",
+                    "Manual search",
+                    "1 user"
+                ]
+            },
+            "pro": {
+                "name": "Professional",
+                "price": "$49",
+                "features": [
+                    "Unlimited tenders",
+                    "Unlimited suppliers",
+                    "AI search",
+                    "5 users",
+                    "Automatic contact"
+                ]
+            },
+            "enterprise": {
+                "name": "Enterprise",
+                "price": "Contact us",
+                "features": [
+                    "Everything in Pro",
+                    "Unlimited users",
+                    "API access",
+                    "Priority support",
+                    "ERP integration"
+                ]
+            }
+        }
+    }
+}

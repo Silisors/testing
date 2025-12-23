@@ -1,0 +1,220 @@
+{
+    "common": {
+        "appName": "ComprasBot",
+        "tagline": "Gestión Inteligente de Compras",
+        "loading": "Cargando...",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "delete": "Eliminar",
+        "edit": "Editar",
+        "create": "Crear",
+        "search": "Buscar",
+        "filter": "Filtrar",
+        "export": "Exportar",
+        "import": "Importar",
+        "actions": "Acciones",
+        "status": "Estado",
+        "date": "Fecha",
+        "total": "Total",
+        "details": "Detalles",
+        "back": "Volver",
+        "next": "Siguiente",
+        "previous": "Anterior",
+        "submit": "Enviar",
+        "confirm": "Confirmar",
+        "yes": "Sí",
+        "no": "No",
+        "all": "Todos",
+        "none": "Ninguno",
+        "noResults": "No se encontraron resultados",
+        "error": "Error",
+        "success": "Éxito"
+    },
+    "auth": {
+        "login": "Iniciar Sesión",
+        "logout": "Cerrar Sesión",
+        "register": "Registrarse",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "confirmPassword": "Confirmar contraseña",
+        "forgotPassword": "¿Olvidaste tu contraseña?",
+        "resetPassword": "Restablecer contraseña",
+        "companyName": "Nombre de la empresa",
+        "fullName": "Nombre completo",
+        "country": "País",
+        "industry": "Industria",
+        "loginError": "Credenciales inválidas",
+        "registerSuccess": "Registro exitoso. Por favor inicia sesión.",
+        "noAccount": "¿No tienes cuenta?",
+        "haveAccount": "¿Ya tienes cuenta?"
+    },
+    "nav": {
+        "dashboard": "Panel",
+        "tenders": "Licitaciones",
+        "quotes": "Cotizaciones",
+        "suppliers": "Proveedores",
+        "reports": "Reportes",
+        "settings": "Configuración"
+    },
+    "dashboard": {
+        "title": "Panel de Control",
+        "welcome": "Bienvenido, {name}",
+        "activeTenders": "Licitaciones Activas",
+        "pendingQuotes": "Cotizaciones Pendientes",
+        "totalSuppliers": "Total Proveedores",
+        "monthlySavings": "Ahorro Mensual",
+        "recentActivity": "Actividad Reciente",
+        "quickActions": "Acciones Rápidas",
+        "newTender": "Nueva Licitación",
+        "viewQuotes": "Ver Cotizaciones"
+    },
+    "tenders": {
+        "title": "Licitaciones",
+        "newTender": "Nueva Licitación",
+        "editTender": "Editar Licitación",
+        "tenderDetails": "Detalles de Licitación",
+        "tenderTitle": "Título",
+        "tenderDescription": "Descripción",
+        "deadline": "Fecha límite",
+        "supplierScope": "Alcance de Proveedores",
+        "scopeLocal": "Local",
+        "scopeNational": "Nacional",
+        "scopeInternational": "Internacional",
+        "scopeAll": "Todos",
+        "items": "Productos/Servicios",
+        "addItem": "Agregar Producto",
+        "productName": "Nombre del Producto",
+        "quantity": "Cantidad",
+        "unit": "Unidad",
+        "specifications": "Especificaciones",
+        "searchSuppliers": "Buscar Proveedores",
+        "contactSuppliers": "Contactar Proveedores",
+        "status": {
+            "draft": "Borrador",
+            "searching": "Buscando Proveedores",
+            "quoting": "Esperando Cotizaciones",
+            "analyzing": "Analizando",
+            "completed": "Completada",
+            "cancelled": "Cancelada"
+        }
+    },
+    "suppliers": {
+        "title": "Proveedores",
+        "newSupplier": "Nuevo Proveedor",
+        "editSupplier": "Editar Proveedor",
+        "supplierDetails": "Detalles del Proveedor",
+        "name": "Nombre",
+        "email": "Email",
+        "phone": "Teléfono",
+        "website": "Sitio Web",
+        "address": "Dirección",
+        "country": "País",
+        "scope": "Alcance",
+        "categories": "Categorías",
+        "rating": "Calificación",
+        "verified": "Verificado",
+        "notVerified": "No Verificado",
+        "contactHistory": "Historial de Contactos",
+        "sendQuoteRequest": "Solicitar Cotización",
+        "aiSearch": "Búsqueda con IA",
+        "searchingSuppliers": "Buscando proveedores con IA...",
+        "foundSuppliers": "Se encontraron {count} proveedores"
+    },
+    "quotes": {
+        "title": "Cotizaciones",
+        "newQuote": "Nueva Cotización",
+        "quoteDetails": "Detalles de Cotización",
+        "totalPrice": "Precio Total",
+        "currency": "Moneda",
+        "deliveryDays": "Días de Entrega",
+        "warranty": "Garantía",
+        "paymentTerms": "Términos de Pago",
+        "notes": "Notas",
+        "items": "Artículos",
+        "unitPrice": "Precio Unitario",
+        "accept": "Aceptar",
+        "reject": "Rechazar",
+        "compare": "Comparar",
+        "analyzeWithAI": "Analizar con IA",
+        "bestPrice": "Mejor Precio",
+        "bestDelivery": "Mejor Entrega",
+        "bestOverall": "Mejor Opción",
+        "aiRecommendation": "Recomendación IA",
+        "status": {
+            "received": "Recibida",
+            "analyzing": "Analizando",
+            "accepted": "Aceptada",
+            "rejected": "Rechazada"
+        }
+    },
+    "ai": {
+        "searching": "Buscando con inteligencia artificial...",
+        "analyzing": "Analizando con IA...",
+        "recommendations": "Recomendaciones",
+        "score": "Puntuación",
+        "analysis": "Análisis",
+        "noApiKey": "API de OpenAI no configurada. Configure OPENAI_API_KEY para habilitar funciones de IA."
+    },
+    "landing": {
+        "hero": {
+            "title": "Automatiza tus Compras con Inteligencia Artificial",
+            "subtitle": "ComprasBot encuentra los mejores proveedores, solicita cotizaciones y analiza las ofertas automáticamente",
+            "cta": "Comenzar Gratis",
+            "demo": "Ver Demo"
+        },
+        "features": {
+            "title": "Características",
+            "search": {
+                "title": "Búsqueda Inteligente",
+                "description": "Encuentra proveedores locales, nacionales e internacionales con IA"
+            },
+            "autoContact": {
+                "title": "Contacto Automático",
+                "description": "Envía solicitudes de cotización personalizadas a todos los proveedores"
+            },
+            "analysis": {
+                "title": "Análisis de Cotizaciones",
+                "description": "Compara precios, tiempos de entrega y condiciones automáticamente"
+            },
+            "multiLanguage": {
+                "title": "Multi-idioma",
+                "description": "Trabaja en español, inglés o portugués según tu preferencia"
+            }
+        },
+        "pricing": {
+            "title": "Precios",
+            "free": {
+                "name": "Gratis",
+                "price": "$0",
+                "features": [
+                    "5 licitaciones/mes",
+                    "10 proveedores",
+                    "Búsqueda manual",
+                    "1 usuario"
+                ]
+            },
+            "pro": {
+                "name": "Profesional",
+                "price": "$49",
+                "features": [
+                    "Licitaciones ilimitadas",
+                    "Proveedores ilimitados",
+                    "Búsqueda con IA",
+                    "5 usuarios",
+                    "Contacto automático"
+                ]
+            },
+            "enterprise": {
+                "name": "Empresarial",
+                "price": "Contactar",
+                "features": [
+                    "Todo de Pro",
+                    "Usuarios ilimitados",
+                    "API acceso",
+                    "Soporte prioritario",
+                    "Integración ERP"
+                ]
+            }
+        }
+    }
+}
