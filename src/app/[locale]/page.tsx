@@ -67,11 +67,7 @@ export default function HomePage() {
                                     <ArrowRight className="w-5 h-5" />
                                 </Button>
                             </Link>
-                            <Link href="#demo">
-                                <Button size="xl" variant="outline">
-                                    {t("landing.hero.demo")}
-                                </Button>
-                            </Link>
+
                         </div>
                     </div>
                 </div>

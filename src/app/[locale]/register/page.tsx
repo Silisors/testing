@@ -27,9 +27,7 @@ export default function RegisterPage() {
             name: formData.get("name") as string,
             email: formData.get("email") as string,
             password: formData.get("password") as string,
-            companyName: formData.get("companyName") as string,
-            country: formData.get("country") as string,
-            industry: formData.get("industry") as string,
+            phone: formData.get("phone") as string,
         };
 
         try {
@@ -77,17 +75,6 @@ export default function RegisterPage() {
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2 col-span-2">
-                                <Label htmlFor="companyName">{t("auth.companyName")}</Label>
-                                <Input
-                                    id="companyName"
-                                    name="companyName"
-                                    placeholder="Mi Empresa S.A."
-                                    required
-                                    disabled={isLoading}
-                                />
-                            </div>
-
-                            <div className="space-y-2 col-span-2">
                                 <Label htmlFor="name">{t("auth.fullName")}</Label>
                                 <Input
                                     id="name"
@@ -98,44 +85,6 @@ export default function RegisterPage() {
                                 />
                             </div>
 
-                            <div className="space-y-2">
-                                <Label htmlFor="country">{t("auth.country")}</Label>
-                                <Select name="country" required>
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Seleccionar" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="CO">Colombia</SelectItem>
-                                        <SelectItem value="MX">México</SelectItem>
-                                        <SelectItem value="ES">España</SelectItem>
-                                        <SelectItem value="AR">Argentina</SelectItem>
-                                        <SelectItem value="PE">Perú</SelectItem>
-                                        <SelectItem value="CL">Chile</SelectItem>
-                                        <SelectItem value="BR">Brasil</SelectItem>
-                                        <SelectItem value="US">Estados Unidos</SelectItem>
-                                        <SelectItem value="OTHER">Otro</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="industry">{t("auth.industry")}</Label>
-                                <Select name="industry">
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Seleccionar" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="manufacturing">Manufactura</SelectItem>
-                                        <SelectItem value="technology">Tecnología</SelectItem>
-                                        <SelectItem value="healthcare">Salud</SelectItem>
-                                        <SelectItem value="retail">Retail</SelectItem>
-                                        <SelectItem value="construction">Construcción</SelectItem>
-                                        <SelectItem value="services">Servicios</SelectItem>
-                                        <SelectItem value="other">Otra</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
-
                             <div className="space-y-2 col-span-2">
                                 <Label htmlFor="email">{t("auth.email")}</Label>
                                 <Input
@@ -143,6 +92,18 @@ export default function RegisterPage() {
                                     name="email"
                                     type="email"
                                     placeholder="email@empresa.com"
+                                    required
+                                    disabled={isLoading}
+                                />
+                            </div>
+
+                            <div className="space-y-2 col-span-2">
+                                <Label htmlFor="phone">{t("auth.phone") || "Teléfono"}</Label>
+                                <Input
+                                    id="phone"
+                                    name="phone"
+                                    type="tel"
+                                    placeholder="+57 300 123 4567"
                                     required
                                     disabled={isLoading}
                                 />

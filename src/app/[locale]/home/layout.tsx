@@ -10,9 +10,7 @@ export default async function HomeLayout({
 }) {
     const session = await getServerSession(authOptions);
 
-    if (session?.user?.role === "ADMIN") {
-        redirect("/dashboard");
-    }
+
 
     return (
         <div className="min-h-screen bg-background">

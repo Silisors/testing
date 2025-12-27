@@ -21,10 +21,8 @@ export const authOptions: NextAuthOptions = {
                     throw new Error("Invalid credentials");
                 }
 
-                // TODO: Uncomment this when the backend is ready
-                /*
                 try {
-                    const res = await fetch("https://palacio-motors-backend-production.up.railway.app/api/auth/login", {
+                    const res = await fetch("https://palacio-motors-backend-production.up.railway.app/auth/login", {
                         method: "POST",
                         body: JSON.stringify({
                             email: credentials.email,
@@ -33,36 +31,27 @@ export const authOptions: NextAuthOptions = {
                         headers: { "Content-Type": "application/json" },
                     });
 
-                    const user = await res.json();
+                    const data = await res.json();
 
-                    if (res.ok && user) {
-                         return {
-                            id: user.id,
-                            email: user.email,
-                            name: user.name,
-                            role: user.role,
-                            language: user.language || 'en',
-                            companyId: user.companyId,
-                            companyName: user.companyName,
+                    if (res.ok && data.user) {
+                        return {
+                            id: data.user.id,
+                            email: data.user.email,
+                            name: data.user.full_name,
+                            role: data.user.role,
+                            accessToken: data.access_token,
+                            language: 'en',
+                            companyId: 'default-id',
+                            companyName: 'Default Company',
+                            // language: data.user.language || 'en', // Not in response
+                            // companyId: data.user.companyId, // Not in response
+                            // companyName: data.user.companyName, // Not in response
                         };
                     }
                 } catch (error) {
                     console.error("Login failed", error);
                 }
                 return null;
-                */
-
-                // Mock implementation
-                const isAdmin = credentials.email === "prueba01@yopmail.com";
-                return {
-                    id: isAdmin ? "admin-id" : "user-id",
-                    email: credentials.email,
-                    name: isAdmin ? "Admin User" : "Normal User",
-                    role: isAdmin ? "ADMIN" : "USER",
-                    language: "en",
-                    companyId: "mock-company-id",
-                    companyName: "Mock Company",
-                };
             },
         }),
     ],

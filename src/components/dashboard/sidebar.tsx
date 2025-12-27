@@ -45,13 +45,14 @@ export function Sidebar() {
     const t = useTranslations();
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
-    const { data: session } = useSession();
-
-    const isUser = session?.user?.role === "USER";
-    const navItems = isUser ? userNavItems : adminNavItems;
+    // const { data: session } = useSession(); // Role check removed
 
     // Remove locale prefix from pathname for comparison
     const cleanPathname = pathname.replace(/^\/(es|en|pt)/, "");
+
+    // Determine nav items based on current section (Home vs Dashboard)
+    const isHomeSection = cleanPathname.startsWith("/home");
+    const navItems = isHomeSection ? userNavItems : adminNavItems;
 
     return (
         <>
@@ -121,7 +122,7 @@ export function Sidebar() {
                         <Button
                             variant="ghost"
                             className="w-full justify-start gap-3 text-muted-foreground hover:text-destructive"
-                            onClick={() => signOut({ callbackUrl: "/login" })}
+                            onClick={() => signOut({ callbackUrl: "/" })}
                         >
                             <LogOut className="w-5 h-5" />
                             {t("auth.logout")}
