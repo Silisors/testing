@@ -38,9 +38,10 @@ export default function ProfilePage() {
                             <Button variant="outline">Change Avatar</Button>
                         </div>
 
+
                         <div className="space-y-2">
                             <Label>Full Name</Label>
-                            <Input defaultValue={session?.user?.name || ""} />
+                            <Input defaultValue={session?.user?.name || ""} disabled />
                         </div>
 
                         <div className="space-y-2">
@@ -50,10 +51,15 @@ export default function ProfilePage() {
 
                         <div className="space-y-2">
                             <Label>Phone Number</Label>
-                            <Input placeholder="+1 234 567 890" />
+                            <Input defaultValue={session?.user?.phone || ""} disabled />
                         </div>
 
-                        <Button>Save Changes</Button>
+                        <div className="space-y-2">
+                            <Label>Role</Label>
+                            <Input defaultValue={session?.user?.role || ""} disabled />
+                        </div>
+
+                        {/* <Button>Save Changes</Button> */}
                     </CardContent>
                 </Card>
 

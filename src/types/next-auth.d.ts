@@ -9,6 +9,7 @@ declare module "next-auth" {
             language: string;
             companyId: string;
             companyName: string;
+            phone?: string | null;
         } & DefaultSession["user"];
     }
 
@@ -17,6 +18,7 @@ declare module "next-auth" {
         language: string;
         companyId: string | null;
         companyName: string | undefined;
+        phone?: string | null;
     }
 }
 
@@ -27,5 +29,6 @@ declare module "next-auth/jwt" {
         language: string;
         companyId: string;
         companyName: string;
+        phone?: string | null;
     }
 }

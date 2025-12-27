@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import * as bcrypt from "bcryptjs";
 
 export async function POST(request: Request) {
     try {
@@ -14,28 +16,34 @@ export async function POST(request: Request) {
         }
 
         try {
-            const res = await fetch("https://palacio-motors-backend-production.up.railway.app/auth/register", {
-                method: "POST",
-                body: JSON.stringify({
-                    email,
-                    password,
-                    full_name: name,
-                    phone
-                }),
-                headers: { "Content-Type": "application/json" },
+            // Check if user already exists
+            const existingUser = await prisma.user.findUnique({
+                where: { email },
             });
 
-            const data = await res.json();
-
-            if (!res.ok) {
+            if (existingUser) {
                 return NextResponse.json(
-                    { error: data.message || "Registration failed" },
-                    { status: res.status }
+                    { error: "User already exists" },
+                    { status: 409 }
                 );
             }
 
+            // Hash password
+            const hashedPassword = await bcrypt.hash(password, 10);
+
+            // Create user
+            const user = await prisma.user.create({
+                data: {
+                    email,
+                    password: hashedPassword,
+                    fullName: name,
+                    phone,
+                    role: 'USER'
+                },
+            });
+
             return NextResponse.json(
-                { message: "User created successfully", userId: data.user?.id },
+                { message: "User created successfully", userId: user.id },
                 { status: 201 }
             );
 

@@ -22,32 +22,37 @@ export const authOptions: NextAuthOptions = {
                 }
 
                 try {
-                    const res = await fetch("https://palacio-motors-backend-production.up.railway.app/auth/login", {
-                        method: "POST",
-                        body: JSON.stringify({
-                            email: credentials.email,
-                            password: credentials.password,
-                        }),
-                        headers: { "Content-Type": "application/json" },
+                    const { prisma } = await import("@/lib/prisma");
+                    const bcrypt = await import("bcryptjs");
+
+                    const user = await prisma.user.findUnique({
+                        where: { email: credentials.email },
                     });
 
-                    const data = await res.json();
-
-                    if (res.ok && data.user) {
-                        return {
-                            id: data.user.id,
-                            email: data.user.email,
-                            name: data.user.full_name,
-                            role: data.user.role,
-                            accessToken: data.access_token,
-                            language: 'en',
-                            companyId: 'default-id',
-                            companyName: 'Default Company',
-                            // language: data.user.language || 'en', // Not in response
-                            // companyId: data.user.companyId, // Not in response
-                            // companyName: data.user.companyName, // Not in response
-                        };
+                    if (!user) {
+                        return null;
                     }
+
+                    const isPasswordValid = await bcrypt.compare(
+                        credentials.password,
+                        user.password
+                    );
+
+                    if (!isPasswordValid) {
+                        return null;
+                    }
+
+                    return {
+                        id: user.id,
+                        email: user.email,
+                        name: user.fullName,
+                        role: user.role,
+                        phone: user.phone,
+                        accessToken: "", // No access token user-side for local db unless we implement JWT, but NextAuth handles session
+                        language: 'en',
+                        companyId: 'default-id',
+                        companyName: 'Default Company',
+                    };
                 } catch (error) {
                     console.error("Login failed", error);
                 }
@@ -63,6 +68,7 @@ export const authOptions: NextAuthOptions = {
                 token.language = user.language;
                 token.companyId = user.companyId ?? "";
                 token.companyName = user.companyName ?? "";
+                token.phone = user.phone;
             }
             return token;
         },
@@ -73,6 +79,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.language = token.language as string;
                 session.user.companyId = token.companyId as string;
                 session.user.companyName = token.companyName as string;
+                session.user.phone = token.phone as string;
             }
             return session;
         },
