@@ -1,6 +1,5 @@
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -12,9 +11,11 @@ import {
     Plus,
     ArrowRight,
 } from "lucide-react";
+import { authOptions } from "@/lib/auth";
 
-export default function DashboardPage() {
-    const t = useTranslations();
+export default async function DashboardPage() {
+    const t = await getTranslations();
+    const session = await getServerSession(authOptions);
 
     const stats = [
         {
@@ -53,10 +54,10 @@ export default function DashboardPage() {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-bold">{t("dashboard.title")}</h1>
-                    <p className="text-muted-foreground">{t("dashboard.welcome", { name: "Usuario" })}</p>
+                    <p className="text-muted-foreground">{t("dashboard.welcome", { name: session?.user?.name || "Usuario" })}</p>
                 </div>
                 <Link href="/dashboard/tenders/new">
-                    <Button variant="gradient" className="gap-2">
+                    <Button variant="default" className="gap-2 bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700">
                         <Plus className="w-4 h-4" />
                         {t("dashboard.newTender")}
                     </Button>
@@ -66,18 +67,18 @@ export default function DashboardPage() {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {stats.map((stat, index) => (
-                    <Card key={index} className="hover:shadow-lg transition-shadow">
+                    <Card key={index} className="hover:shadow-lg transition-all duration-300 border-l-4 border-l-primary/20">
                         <CardHeader className="flex flex-row items-center justify-between pb-2">
                             <CardTitle className="text-sm font-medium text-muted-foreground">
                                 {stat.title}
                             </CardTitle>
-                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                                 <stat.icon className="w-5 h-5 text-primary" />
                             </div>
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">{stat.value}</div>
-                            <p className="text-xs text-green-600 flex items-center gap-1 mt-1">
+                            <p className="text-xs text-green-600 flex items-center gap-1 mt-1 font-medium bg-green-50 w-fit px-2 py-0.5 rounded-full">
                                 {stat.change} desde el mes pasado
                             </p>
                         </CardContent>
@@ -88,71 +89,71 @@ export default function DashboardPage() {
             {/* Quick Actions & Recent Activity */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Quick Actions */}
-                <Card>
+                <Card className="hover:shadow-md transition-shadow">
                     <CardHeader>
                         <CardTitle>{t("dashboard.quickActions")}</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
                         <Link href="/dashboard/tenders/new" className="block">
-                            <div className="flex items-center justify-between p-4 rounded-lg border hover:bg-muted/50 transition-colors group">
+                            <div className="flex items-center justify-between p-4 rounded-xl border hover:bg-muted/50 transition-all group hover:border-primary/50">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                                        <Plus className="w-5 h-5 text-primary" />
+                                    <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+                                        <Plus className="w-6 h-6 text-blue-600" />
                                     </div>
                                     <div>
-                                        <p className="font-medium">{t("tenders.newTender")}</p>
+                                        <p className="font-medium group-hover:text-blue-700 transition-colors">{t("tenders.newTender")}</p>
                                         <p className="text-sm text-muted-foreground">
                                             Crear una nueva licitación de compras
                                         </p>
                                     </div>
                                 </div>
-                                <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                                <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
                             </div>
                         </Link>
 
                         <Link href="/dashboard/suppliers" className="block">
-                            <div className="flex items-center justify-between p-4 rounded-lg border hover:bg-muted/50 transition-colors group">
+                            <div className="flex items-center justify-between p-4 rounded-xl border hover:bg-muted/50 transition-all group hover:border-primary/50">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                                        <Users className="w-5 h-5 text-primary" />
+                                    <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
+                                        <Users className="w-6 h-6 text-purple-600" />
                                     </div>
                                     <div>
-                                        <p className="font-medium">{t("suppliers.aiSearch")}</p>
+                                        <p className="font-medium group-hover:text-purple-700 transition-colors">{t("suppliers.aiSearch")}</p>
                                         <p className="text-sm text-muted-foreground">
                                             Buscar proveedores con inteligencia artificial
                                         </p>
                                     </div>
                                 </div>
-                                <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                                <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
                             </div>
                         </Link>
 
                         <Link href="/dashboard/quotes" className="block">
-                            <div className="flex items-center justify-between p-4 rounded-lg border hover:bg-muted/50 transition-colors group">
+                            <div className="flex items-center justify-between p-4 rounded-xl border hover:bg-muted/50 transition-all group hover:border-primary/50">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                                        <BarChart3 className="w-5 h-5 text-primary" />
+                                    <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center group-hover:bg-green-100 transition-colors">
+                                        <BarChart3 className="w-6 h-6 text-green-600" />
                                     </div>
                                     <div>
-                                        <p className="font-medium">{t("dashboard.viewQuotes")}</p>
+                                        <p className="font-medium group-hover:text-green-700 transition-colors">{t("dashboard.viewQuotes")}</p>
                                         <p className="text-sm text-muted-foreground">
                                             Ver y comparar cotizaciones recibidas
                                         </p>
                                     </div>
                                 </div>
-                                <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                                <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-green-600 group-hover:translate-x-1 transition-all" />
                             </div>
                         </Link>
                     </CardContent>
                 </Card>
 
                 {/* Recent Activity */}
-                <Card>
+                <Card className="hover:shadow-md transition-shadow">
                     <CardHeader>
                         <CardTitle>{t("dashboard.recentActivity")}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="space-y-4">
+                        <div className="relative space-y-0 pl-4 border-l-2 border-muted">
                             {[
                                 {
                                     action: "Nueva cotización recibida",
@@ -177,13 +178,13 @@ export default function DashboardPage() {
                             ].map((activity, index) => (
                                 <div
                                     key={index}
-                                    className="flex items-start gap-3 pb-4 border-b last:border-0 last:pb-0"
+                                    className="relative pl-6 pb-8 last:pb-0 group"
                                 >
-                                    <div className="w-2 h-2 rounded-full bg-primary mt-2" />
-                                    <div className="flex-1">
-                                        <p className="font-medium text-sm">{activity.action}</p>
+                                    <div className="absolute -left-[21px] top-0 w-3 h-3 rounded-full bg-primary border-4 border-background group-hover:scale-125 transition-transform" />
+                                    <div>
+                                        <p className="font-medium text-sm group-hover:text-primary transition-colors">{activity.action}</p>
                                         <p className="text-sm text-muted-foreground">{activity.detail}</p>
-                                        <p className="text-xs text-muted-foreground mt-1">{activity.time}</p>
+                                        <p className="text-xs text-muted-foreground mt-1 bg-muted/50 w-fit px-2 py-0.5 rounded-md">{activity.time}</p>
                                     </div>
                                 </div>
                             ))}

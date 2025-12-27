@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import prisma from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
 
 // GET - Get all quotes for the company
@@ -12,34 +11,8 @@ export async function GET() {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const quotes = await prisma.quote.findMany({
-            where: {
-                tender: {
-                    companyId: session.user.companyId,
-                },
-            },
-            include: {
-                supplier: {
-                    select: {
-                        id: true,
-                        name: true,
-                        country: true,
-                    },
-                },
-                tender: {
-                    select: {
-                        id: true,
-                        title: true,
-                    },
-                },
-                items: true,
-            },
-            orderBy: {
-                createdAt: 'desc',
-            },
-        });
-
-        return NextResponse.json(quotes);
+        // Mock data
+        return NextResponse.json([]);
     } catch (error) {
         console.error("Error fetching quotes:", error);
         return NextResponse.json(

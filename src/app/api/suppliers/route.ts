@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import prisma from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
 
 // GET - Get all suppliers for the company
@@ -12,23 +11,8 @@ export async function GET() {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const suppliers = await prisma.supplier.findMany({
-            where: {
-                companyId: session.user.companyId,
-            },
-            include: {
-                _count: {
-                    select: {
-                        quotes: true,
-                    },
-                },
-            },
-            orderBy: {
-                createdAt: 'desc',
-            },
-        });
-
-        return NextResponse.json(suppliers);
+        // Mock data
+        return NextResponse.json([]);
     } catch (error) {
         console.error("Error fetching suppliers:", error);
         return NextResponse.json(
@@ -48,29 +32,9 @@ export async function POST(request: Request) {
         }
 
         const body = await request.json();
-        const { name, email, phone, website, country, categories } = body;
 
-        if (!name || !email || !country) {
-            return NextResponse.json(
-                { error: "Name, email and country are required" },
-                { status: 400 }
-            );
-        }
-
-        const supplier = await prisma.supplier.create({
-            data: {
-                name,
-                email,
-                phone,
-                website,
-                country,
-                scope: "NATIONAL",
-                categories: categories || [],
-                companyId: session.user.companyId,
-            },
-        });
-
-        return NextResponse.json(supplier, { status: 201 });
+        // Mock response
+        return NextResponse.json({ id: "mock-supplier-id", ...body }, { status: 201 });
     } catch (error) {
         console.error("Error creating supplier:", error);
         return NextResponse.json(

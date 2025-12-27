@@ -14,6 +14,7 @@ import {
     ArrowRight,
     Check
 } from "lucide-react";
+import AavanceWidget from "@/components/pricing/AavanceWidget";
 
 export default function HomePage() {
     const t = useTranslations();
@@ -186,9 +187,11 @@ export default function HomePage() {
                                         </li>
                                     ))}
                                 </ul>
-                                <Button variant="gradient" className="w-full">
-                                    {t("landing.hero.cta")}
-                                </Button>
+                                <AavanceWidget
+                                    amount={50000}
+                                    description={t("landing.pricing.pro.name")}
+                                    buttonText={t("landing.hero.cta")}
+                                />
                             </CardContent>
                         </Card>
 

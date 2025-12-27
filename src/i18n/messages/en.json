@@ -50,9 +50,14 @@
     },
     "nav": {
         "dashboard": "Dashboard",
+        "home": "Home",
         "tenders": "Tenders",
         "quotes": "Quotes",
         "suppliers": "Suppliers",
+        "products": "Products",
+        "myPlan": "My Plan",
+        "history": "History",
+        "profile": "Profile",
         "reports": "Reports",
         "settings": "Settings"
     },

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,21 +16,39 @@ import {
     ShoppingCart,
     Menu,
     X,
+    Package,
+    CreditCard,
+    History,
+    UserCircle,
+    Home,
 } from "lucide-react";
 import { useState } from "react";
 
-const navItems = [
+const adminNavItems = [
     { href: "/dashboard", icon: LayoutDashboard, label: "nav.dashboard" },
     { href: "/dashboard/tenders", icon: FileText, label: "nav.tenders" },
-    { href: "/dashboard/suppliers", icon: Users, label: "nav.suppliers" },
     { href: "/dashboard/quotes", icon: BarChart3, label: "nav.quotes" },
+    { href: "/dashboard/suppliers", icon: Users, label: "nav.suppliers" },
+    { href: "/dashboard/products", icon: Package, label: "nav.products" },
+    { href: "/dashboard/my-plan", icon: CreditCard, label: "nav.myPlan" },
     { href: "/dashboard/settings", icon: Settings, label: "nav.settings" },
+];
+
+const userNavItems = [
+    { href: "/home", icon: Home, label: "nav.home" },
+    { href: "/home/my-plan", icon: CreditCard, label: "nav.myPlan" },
+    { href: "/home/profile", icon: UserCircle, label: "nav.profile" },
+    { href: "/home/history", icon: History, label: "nav.history" },
 ];
 
 export function Sidebar() {
     const t = useTranslations();
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+    const { data: session } = useSession();
+
+    const isUser = session?.user?.role === "USER";
+    const navItems = isUser ? userNavItems : adminNavItems;
 
     // Remove locale prefix from pathname for comparison
     const cleanPathname = pathname.replace(/^\/(es|en|pt)/, "");
@@ -72,9 +90,13 @@ export function Sidebar() {
                     {/* Navigation */}
                     <nav className="flex-1 px-3 py-4 space-y-1">
                         {navItems.map((item) => {
+                            // Exact match for root items (/dashboard or /home) unless it's a sub-route
+                            // The previous logic was too loose with startsWith(item.href + "/")
                             const isActive =
                                 cleanPathname === item.href ||
-                                cleanPathname.startsWith(item.href + "/");
+                                (item.href !== "/dashboard" &&
+                                    item.href !== "/home" &&
+                                    cleanPathname.startsWith(item.href + "/"));
                             return (
                                 <Link
                                     key={item.href}

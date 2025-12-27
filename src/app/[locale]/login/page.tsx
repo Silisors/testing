@@ -36,7 +36,13 @@ export default function LoginPage() {
             if (result?.error) {
                 setError(t("auth.loginError"));
             } else {
-                router.push("/dashboard");
+                // Redirect based on role (mock logic)
+                // In a real app, we would check the session, but here we mirror the auth logic
+                if (email === "prueba01@yopmail.com") {
+                    router.push("/dashboard");
+                } else {
+                    router.push("/home");
+                }
                 router.refresh();
             }
         } catch {

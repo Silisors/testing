@@ -50,9 +50,14 @@
     },
     "nav": {
         "dashboard": "Painel",
+        "home": "Início",
         "tenders": "Licitações",
         "quotes": "Cotações",
         "suppliers": "Fornecedores",
+        "products": "Produtos",
+        "myPlan": "Meu Plano",
+        "history": "Histórico",
+        "profile": "Perfil",
         "reports": "Relatórios",
         "settings": "Configurações"
     },

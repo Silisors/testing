@@ -11,6 +11,10 @@ export function generateStaticParams() {
     return locales.map((locale) => ({ locale }));
 }
 
+import { Providers } from "@/components/providers";
+
+
+
 export default async function LocaleLayout({
     children,
     params: { locale },
@@ -28,7 +32,7 @@ export default async function LocaleLayout({
         <html lang={locale} suppressHydrationWarning>
             <body className={inter.className}>
                 <NextIntlClientProvider messages={messages}>
-                    {children}
+                    <Providers>{children}</Providers>
                 </NextIntlClientProvider>
             </body>
         </html>

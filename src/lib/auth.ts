@@ -1,12 +1,7 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { compare } from "bcryptjs";
 import { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import prisma from "@/lib/prisma";
-
 export const authOptions: NextAuthOptions = {
-    adapter: PrismaAdapter(prisma) as NextAuthOptions["adapter"],
     session: {
         strategy: "jwt",
     },
@@ -26,32 +21,47 @@ export const authOptions: NextAuthOptions = {
                     throw new Error("Invalid credentials");
                 }
 
-                const user = await prisma.user.findUnique({
-                    where: { email: credentials.email },
-                    include: { company: true },
-                });
+                // TODO: Uncomment this when the backend is ready
+                /*
+                try {
+                    const res = await fetch("https://palacio-motors-backend-production.up.railway.app/api/auth/login", {
+                        method: "POST",
+                        body: JSON.stringify({
+                            email: credentials.email,
+                            password: credentials.password,
+                        }),
+                        headers: { "Content-Type": "application/json" },
+                    });
 
-                if (!user || !user.password) {
-                    throw new Error("Invalid credentials");
+                    const user = await res.json();
+
+                    if (res.ok && user) {
+                         return {
+                            id: user.id,
+                            email: user.email,
+                            name: user.name,
+                            role: user.role,
+                            language: user.language || 'en',
+                            companyId: user.companyId,
+                            companyName: user.companyName,
+                        };
+                    }
+                } catch (error) {
+                    console.error("Login failed", error);
                 }
+                return null;
+                */
 
-                const isPasswordValid = await compare(
-                    credentials.password,
-                    user.password
-                );
-
-                if (!isPasswordValid) {
-                    throw new Error("Invalid credentials");
-                }
-
+                // Mock implementation
+                const isAdmin = credentials.email === "prueba01@yopmail.com";
                 return {
-                    id: user.id,
-                    email: user.email,
-                    name: user.name,
-                    role: user.role,
-                    language: user.language,
-                    companyId: user.companyId,
-                    companyName: user.company?.name,
+                    id: isAdmin ? "admin-id" : "user-id",
+                    email: credentials.email,
+                    name: isAdmin ? "Admin User" : "Normal User",
+                    role: isAdmin ? "ADMIN" : "USER",
+                    language: "en",
+                    companyId: "mock-company-id",
+                    companyName: "Mock Company",
                 };
             },
         }),
